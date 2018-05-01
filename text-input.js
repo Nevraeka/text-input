@@ -15,7 +15,7 @@
     } else {
       if (!!!customElements.get('img-icon')) {
         const scrpt = document.createElement('script');
-        scrpt.src = 'https://cdn.rawgit.com/Nevraeka/img-icon/v0.0.4/img-icon.js'
+        scrpt.src = 'https://cdn.rawgit.com/Nevraeka/img-icon/master/img-icon.js'
         document.head.appendChild(scrpt);
       }
 

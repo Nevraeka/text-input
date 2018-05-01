@@ -19,10 +19,10 @@
         document.head.appendChild(scrpt);
       }
 
-      customElements.whenDefined('img-icon').then(() => {
+      window.customElements.whenDefined('img-icon').then(() => {
         
-        if (!(!!customElements.get('text-input'))) {
-          customElements.define('text-input',
+        if (!(!!window.customElements.get('text-input'))) {
+          window.customElements.define('text-input',
             class TextInput extends HTMLElement {
 
               static get observedAttributes() { return ['is-valid', 'placeholder', 'size']; }

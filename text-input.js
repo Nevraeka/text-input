@@ -1,21 +1,18 @@
 (function (document, window) {
 
   const customElementsExist = !!window.customElements;
-  new Promise().then(()=> {
     if (!document.getElementById('#wc-polyfill') && !customElementsExist) {
       const script = document.createElement('script');
       script.id = 'wc-polyfill';
       script.src = 'https://cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/1.2.0/webcomponents-sd-ce.js';
       document.head.appendChild(script);
     }
-  }).then(()=> {
 
   if (customElementsExist && !!!window.customElements.get('img-icon')) {
     const scrpt = document.createElement('script');
     scrpt.src = 'https://cdn.rawgit.com/Nevraeka/img-icon/master/img-icon.js'
     document.head.appendChild(scrpt);
   }
-}).then(()=> {
 
   function loadComponent() {
     if (!customElementsExist) {
@@ -172,5 +169,4 @@
     }
   }
   loadComponent();
-});
 })(document, window);

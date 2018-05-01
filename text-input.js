@@ -9,19 +9,17 @@
     document.head.appendChild(script);
   }
 
+  if (customElementsExist && !!!window.customElements.get('img-icon')) {
+    const scrpt = document.createElement('script');
+    scrpt.src = 'https://cdn.rawgit.com/Nevraeka/img-icon/master/img-icon.js'
+    document.head.appendChild(scrpt);
+  }
+
   function loadComponent() {
     if (!customElementsExist) {
       setTimeout(loadComponent, 0);
     } else {
-      if (!!!window.customElements.get('img-icon')) {
-        const scrpt = document.createElement('script');
-        scrpt.src = 'https://cdn.rawgit.com/Nevraeka/img-icon/master/img-icon.js'
-        document.head.appendChild(scrpt);
-      }
-
-      window.customElements.whenDefined('img-icon').then(() => {
-        
-        if (!(!!window.customElements.get('text-input'))) {
+        if (!!!window.customElements.get('text-input')) {
           window.customElements.define('text-input',
             class TextInput extends HTMLElement {
 
@@ -61,31 +59,31 @@
               }
 
             });
-            function render(component) {
-              if (!!component._root) {
-                const setPlaceholderAttr = !!component._state.placeholder ?
-                  'placeholder="' + component._state.placeholder + '"' : '';
+          function render(component) {
+            if (!!component._root) {
+              const setPlaceholderAttr = !!component._state.placeholder ?
+                'placeholder="' + component._state.placeholder + '"' : '';
 
-                let setValidationClass = '';
-                let iconShape = '';
-                let iconDisplay = 'none';
-                let iconFill = 'currentColor';
+              let setValidationClass = '';
+              let iconShape = '';
+              let iconDisplay = 'none';
+              let iconFill = 'currentColor';
 
-                if (component._state.isValid === 'true') {
-                  setValidationClass = 'is-valid';
-                  iconShape = 'checkmark';
-                  iconDisplay = 'block';
-                  iconFill = '#7dc243';
-                }
+              if (component._state.isValid === 'true') {
+                setValidationClass = 'is-valid';
+                iconShape = 'checkmark';
+                iconDisplay = 'block';
+                iconFill = '#7dc243';
+              }
 
-                if (component._state.isValid === 'false') {
-                  setValidationClass = 'not-valid';
-                  iconShape = 'alertCircle'
-                  iconDisplay = 'block';
-                  iconFill = '#f44336';
-                }
+              if (component._state.isValid === 'false') {
+                setValidationClass = 'not-valid';
+                iconShape = 'alertCircle'
+                iconDisplay = 'block';
+                iconFill = '#f44336';
+              }
 
-                component._root.innerHTML = `
+              component._root.innerHTML = `
                   <style>
                     :host {
                       font-family: 'Roboto', Arial, sans-serif;
@@ -147,31 +145,30 @@
                     <img-icon fill="100" class="text__input_icon" shape="${iconShape}"></img-icon>
                   </div>`;
 
-                const textInput = component._root.querySelector('.text__input');
-                const blurHandler = (evt) => blurEvent(component);
-                textInput.setAttribute('value', component._state.text);
-                textInput.removeEventListener('blur', blurHandler);
-                textInput.addEventListener('blur', blurHandler);
-              }
-            }
-
-            function blurEvent(component) {
-              component._state.text = component._root.querySelector('.text__input').value;
-              component.dispatchEvent(component.textUpdatedEvent(component));
-            }
-
-            function textUpdatedEvent(component) {
-              return new CustomEvent('textUpdated', {
-                bubbles: true,
-                composed: true,
-                detail: { text: component._state.text }
-              });
+              const textInput = component._root.querySelector('.text__input');
+              const blurHandler = (evt) => blurEvent(component);
+              textInput.setAttribute('value', component._state.text);
+              textInput.removeEventListener('blur', blurHandler);
+              textInput.addEventListener('blur', blurHandler);
             }
           }
-        });
 
-      }
+          function blurEvent(component) {
+            component._state.text = component._root.querySelector('.text__input').value;
+            component.dispatchEvent(component.textUpdatedEvent(component));
+          }
+
+          function textUpdatedEvent(component) {
+            return new CustomEvent('textUpdated', {
+              bubbles: true,
+              composed: true,
+              detail: { text: component._state.text }
+            });
+          }
+        }
+
     }
-    loadComponent();
+  }
+  loadComponent();
 
-  })(document, window);
+})(document, window);

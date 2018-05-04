@@ -123,6 +123,7 @@
           font-family: 'Roboto', Arial, sans-serif;
           display: flex;
           max-width: 100%;
+          width: 100%;
         }
 
         .text__input {

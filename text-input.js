@@ -111,6 +111,7 @@
 
       component._root.innerHTML = `
         <style>
+
         :host {
           overflow: hidden;
           display: flex;

@@ -88,6 +88,7 @@
     if (!!component._root) {
       const setPlaceholderAttr = !!component._state.placeholder ? `placeholder="${component._state.placeholder}"` : '';
       const blurHandler = (evt) => blurEvent(component);
+      const focusHandler = (evt) => focusEvent(component);
 
       let textInput = null;
       let setValidationClass = '';
@@ -186,18 +187,33 @@
  
       textInput = component._root.querySelector('.text__input');
       textInput.setAttribute('value', component._state.text);
+      textInput.removeEventListener('focus', focusHandler);
+      textInput.addEventListener('focus', focusHandler);
       textInput.removeEventListener('blur', blurHandler);
       textInput.addEventListener('blur', blurHandler);
     }
   }
 
-  function blurEvent(component) {
+  function focusEvent(component) {
     component._state.text = component._root.querySelector('.text__input').value;
-    component.dispatchEvent(textUpdatedEvent(component));
+    component.dispatchEvent(textInputFocusedEvent(component));
   }
 
-  function textUpdatedEvent(component) {
-    return new CustomEvent('textUpdated', {
+  function blurEvent(component) {
+    component._state.text = component._root.querySelector('.text__input').value;
+    component.dispatchEvent(textInputBlurredEvent(component));
+  }
+
+  function textInputFocusedEvent(component) {
+    return new CustomEvent('textInputFocused', {
+      composed: true,
+      cancelable: true,
+      detail: { text: component._state.text }
+    });
+  }
+
+  function textInputBlurredEvent(component) {
+    return new CustomEvent('textInputBlurred', {
       composed: true,
       cancelable: true,
       detail: { text: component._state.text }

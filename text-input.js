@@ -101,7 +101,13 @@
       let iconShape = '';
       let iconDisplay = 'none';
       let iconFill = 'currentColor';
-
+      if(component._state.isValid !== 'true' && component._state.isValid !== 'false') {
+        if(component._state.icon !== '') {
+          iconShape = component._state.icon;
+          iconDisplay = 'block';
+          iconFill = '#3777bc';
+        }
+      }
       if (component._state.isValid === 'true') {
         setValidationClass = 'is-valid';
         iconShape = 'checkmark';
@@ -187,7 +193,7 @@
         </style>
         <div class="text__input_wrapper">
           <input ${setPlaceholderAttr} class="text__input  ${component._state.size} ${setValidationClass}" type="text" />
-          <img-icon fill="100" class="text__input_icon" shape="${component._state.isValid === '' ? component._state.icon : iconShape}"></img-icon>
+          <img-icon fill="100" class="text__input_icon" shape="${iconShape}"></img-icon>
         </div>
       `;
  

@@ -54,7 +54,7 @@
             return this._state.text;
           }
 
-          set value(val){
+          value(val){
             return this._state.text = val;
           }
           

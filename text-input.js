@@ -37,12 +37,13 @@
       window.customElements.define('text-input',
         class TextInput extends HTMLElement {
 
-          static get observedAttributes() { return ['is-valid', 'placeholder', 'size']; }
+          static get observedAttributes() { return ['icon', 'is-valid', 'placeholder', 'size']; }
 
           constructor() {
             super();
             this._root = null;
             this._state = {
+              icon: '',
               placeholder: '',
               size: 'large',
               text: ''
@@ -51,6 +52,10 @@
 
           get value(){
             return this._state.text;
+          }
+
+          set value(val){
+            return this._state.text = val;
           }
           
           connectedCallback() {
@@ -70,6 +75,7 @@
             if (newValue === oldValue) { return };
             if (name === 'placeholder') { this._state.placeholder = newValue; }
             if (name === 'size') { this._state.size = newValue; }
+            if (name === 'icon') { this._state.icon = newValue; }
             if (name === 'is-valid') {
               if (newValue === 'true' || newValue === 'false') {
                 this._state.isValid = newValue;
@@ -181,7 +187,7 @@
         </style>
         <div class="text__input_wrapper">
           <input ${setPlaceholderAttr} class="text__input  ${component._state.size} ${setValidationClass}" type="text" />
-          <img-icon fill="100" class="text__input_icon" shape="${iconShape}"></img-icon>
+          <img-icon fill="100" class="text__input_icon" shape="${this._state.isValid !== '' ? this._state.icon : iconShape}"></img-icon>
         </div>
       `;
  

@@ -54,7 +54,8 @@
             return this._state.text;
           }
 
-          value(val){
+          set value(val){
+            if(this._root){ this._root.querySelector('.text__input').value = val; }
             return this._state.text = val;
           }
           
@@ -192,7 +193,7 @@
         }
         </style>
         <div class="text__input_wrapper">
-          <input ${setPlaceholderAttr} class="text__input  ${component._state.size} ${setValidationClass}" type="text" />
+          <input ${setPlaceholderAttr} class="text__input" ${component._state.size} ${setValidationClass}" type="text" />
           <img-icon fill="100" class="text__input_icon" shape="${iconShape}"></img-icon>
         </div>
       `;

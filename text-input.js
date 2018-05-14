@@ -54,7 +54,7 @@
             return this._state.text;
           }
 
-          set value(val){
+          value(val){
             if(this._root){ this._root.querySelector('.text__input').value = val; }
             return this._state.text = val;
           }

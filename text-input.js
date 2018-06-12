@@ -154,7 +154,6 @@
           width: 100%;
           max-width: 100%;
           box-shadow: none;
-          background-color: rgba(255, 255, 255, 0);
         }
 
         .text__input_icon {

@@ -92,6 +92,8 @@
   }
 
   function render(component) {
+    if (window.ShadyCSS) ShadyCSS.styleElement(this);
+
     if (!!component._root) {
       const setPlaceholderAttr = !!component._state.placeholder ? `placeholder="${component._state.placeholder}"` : '';
       const blurHandler = (evt) => blurEvent(component);
@@ -159,7 +161,7 @@
         .text__input_icon {
           display: ${iconDisplay};
           color: ${iconFill};
-          background-color: #fff;
+          background-color: rgba(255,255,255,0);
           max-width: 24px;
           max-height: 24px;
           position: absolute;
@@ -196,7 +198,8 @@
           <img-icon fill="100" class="text__input_icon" shape="${iconShape}"></img-icon>
         </div>
       `;
- 
+      if (window.ShadyCSS) ShadyCSS.prepareTemplate($template, 'text-input');
+
       textInput = component._root.querySelector('.text__input');
       textInput.setAttribute('value', component._state.text);
       textInput.removeEventListener('focus', focusHandler);

@@ -93,7 +93,7 @@
 
   function render(component) {
     if (window.ShadyCSS) ShadyCSS.styleElement(this);
-    let $template = document.createElement("template");
+
     if (!!component._root) {
       const setPlaceholderAttr = !!component._state.placeholder ? `placeholder="${component._state.placeholder}"` : '';
       const blurHandler = (evt) => blurEvent(component);
@@ -125,7 +125,7 @@
         iconFill = '#f44336';
       }
 
-      $template.innerHTML = `
+      component._root.innerHTML = `
         <style>
 
         :host {
@@ -199,7 +199,6 @@
         </div>
       `;
       if (window.ShadyCSS) ShadyCSS.prepareTemplate($template, 'text-input');
-      component._root.appendChild(document.importNode($template.content, true));
 
       textInput = component._root.querySelector('.text__input');
       textInput.setAttribute('value', component._state.text);
@@ -208,7 +207,6 @@
       textInput.removeEventListener('blur', blurHandler);
       textInput.addEventListener('blur', blurHandler);
     }
-    
   }
 
   function focusEvent(component) {

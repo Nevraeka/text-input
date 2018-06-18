@@ -92,7 +92,6 @@
   }
 
   function render(component) {
-    if (window.ShadyCSS) ShadyCSS.styleElement(this);
 
     if (!!component._root) {
       const setPlaceholderAttr = !!component._state.placeholder ? `placeholder="${component._state.placeholder}"` : '';
@@ -198,7 +197,6 @@
           <img-icon fill="100" class="text__input_icon" shape="${iconShape}"></img-icon>
         </div>
       `;
-      if (window.ShadyCSS) ShadyCSS.prepareTemplate($template, 'text-input');
 
       textInput = component._root.querySelector('.text__input');
       textInput.setAttribute('value', component._state.text);

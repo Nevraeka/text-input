@@ -131,7 +131,7 @@
           overflow: hidden;
           display: flex;
           width: inherit;
-          min-width: ${this._state.size === 'small' ? '6' : '8'}0px;
+          min-width: ${component._state.size === 'small' ? '6' : '8'}0px;
           max-width: 100%;
         }
 

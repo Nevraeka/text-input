@@ -130,7 +130,8 @@
         :host {
           overflow: hidden;
           display: flex;
-          width: 100%;
+          width: inherit;
+          min-width: ${this._state.size === 'small' ? '6' : '8'}0px;
           max-width: 100%;
         }
 

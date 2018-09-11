@@ -156,6 +156,7 @@
           width: 100%;
           max-width: 100%;
           box-shadow: none;
+          box-sizing: border-box;
         }
 
         .text__input_icon {
